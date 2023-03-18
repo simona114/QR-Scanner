@@ -26,35 +26,13 @@ class MainActivity : AppCompatActivity() {
         navController.enableOnBackPressed(true)
 
         setupActionBarWithNavController(navController)
-//        binding.btnScan.setOnClickListener {
-//            scanQRCode()
-//        }
+
     }
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-//    private fun scanQRCode() {
-//        try {
-//            val scanOptions = ScanOptions()
-//                .setOrientationLocked(true)
-//            barLauncher.launch(scanOptions)
-//        } catch (e: Exception) {
-//            Log.e("scan", "scan: ${e.message} ")
-//            e.printStackTrace()
-//        }
-//    }
 
-//    private val barLauncher: ActivityResultLauncher<ScanOptions> =
-//        registerForActivityResult(ScanContract()) { result ->
-//            if (result.contents != null) {
-//                Log.d("scan_result", "result.contents is ${result.contents} ")
-//                binding.tvScanResult.text = "result:" + result.contents
-//            } else {
-//                Log.d("scan_result", "result.contents is null")
-//
-//            }
-//        }
 
 
 }
