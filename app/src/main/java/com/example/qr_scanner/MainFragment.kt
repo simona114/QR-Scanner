@@ -30,6 +30,7 @@ class MainFragment : Fragment() {
             scanQRCode()
         }
     }
+
     private fun scanQRCode() {
         try {
             val scanOptions = ScanOptions()
@@ -48,7 +49,6 @@ class MainFragment : Fragment() {
                 binding.tvScanResult.text = "result:" + result.contents
             } else {
                 Log.d("scan_result", "result.contents is null")
-
             }
         }
 }
