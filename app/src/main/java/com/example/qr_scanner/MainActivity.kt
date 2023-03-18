@@ -4,44 +4,57 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.qr_scanner.databinding.ActivityMainBinding
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private lateinit var navController:NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnScan.setOnClickListener {
-            scanQRCode()
-        }
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentNavHost) as NavHostFragment
+        navController = navHostFragment.navController
+
+        navController.enableOnBackPressed(true)
+
+        setupActionBarWithNavController(navController)
+//        binding.btnScan.setOnClickListener {
+//            scanQRCode()
+//        }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    private fun scanQRCode() {
-        try {
-            val scanOptions = ScanOptions()
-                .setOrientationLocked(true)
-            barLauncher.launch(scanOptions)
-        } catch (e: Exception) {
-            Log.e("scan", "scan: ${e.message} ")
-            e.printStackTrace()
-        }
-    }
+//    private fun scanQRCode() {
+//        try {
+//            val scanOptions = ScanOptions()
+//                .setOrientationLocked(true)
+//            barLauncher.launch(scanOptions)
+//        } catch (e: Exception) {
+//            Log.e("scan", "scan: ${e.message} ")
+//            e.printStackTrace()
+//        }
+//    }
 
-    private val barLauncher: ActivityResultLauncher<ScanOptions> =
-        registerForActivityResult(ScanContract()) { result ->
-            if (result.contents != null) {
-                Log.d("scan_result", "result.contents is ${result.contents} ")
-                binding.tvScanResult.text = "result:" + result.contents
-            } else {
-                Log.d("scan_result", "result.contents is null")
-
-            }
-        }
+//    private val barLauncher: ActivityResultLauncher<ScanOptions> =
+//        registerForActivityResult(ScanContract()) { result ->
+//            if (result.contents != null) {
+//                Log.d("scan_result", "result.contents is ${result.contents} ")
+//                binding.tvScanResult.text = "result:" + result.contents
+//            } else {
+//                Log.d("scan_result", "result.contents is null")
+//
+//            }
+//        }
 
 
 }
